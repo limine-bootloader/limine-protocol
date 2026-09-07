@@ -323,7 +323,8 @@ This is the default base revision used if no base revision tag is provided.
 **Changes from Base Revision 5**:
 - **aarch64**: FP/SIMD/SVE are disabled at entry (`CPACR_EL1` = 0).
 - **aarch64**: The executable is entered at EL2 with VHE if the bootloader is at
-    EL2 and VHE is supported. EL2 without VHE is not supported.
+    EL2 and VHE is supported, and at EL1 otherwise. The executable is never
+    entered at EL2 without VHE.
 - **aarch64**: Extra system registers and `PSTATE` have more strictly defined
     states. See [aarch64 machine state](#aarch64-1) for details.
 - **riscv64**: Extra CSRs have more strictly defined states. See
@@ -586,7 +587,7 @@ For [base revision 6](#base-revision-6) or greater, the executable is entered in
 little-endian AArch64 at either EL1 or EL2, depending on the firmware handoff
 state. If the bootloader is running at EL2 and VHE is supported by the hardware,
 the executable is entered at EL2 with VHE enabled. Otherwise, the executable is
-entered at EL1. Booting at EL2 without VHE support is not supported.
+entered at EL1. The executable is never entered at EL2 without VHE.
 For base revisions less than 6, the executable is always entered at EL1.
 
 In all cases, all interrupts are masked (`PSTATE.{D, A, I, F}` are set to 1).
